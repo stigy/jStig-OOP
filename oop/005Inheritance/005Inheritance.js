@@ -381,3 +381,70 @@ console.log(triangleMulti.getArea());
 console.log(triangleMulti.dimensions);
 console.log(triangleMulti.toString());
 console.log('This was a mixin');
+
+console.log(' ');
+console.log('Parasitic Inheritance.');
+var InfectedtwoD = {
+	name: '2D shape',
+	dimensions: 2
+};
+
+function Paratriangle(s,h){
+	var that = object(InfectedtwoD);
+	that.name = 'Para triangle';
+	that.getArea = function(){return this.side*this.height/2;};
+	that.side = s;
+	that.height = h;
+	return that;
+}
+var t = Paratriangle(20,34);
+console.log(t.dimensions);
+console.log(t.getArea());
+
+console.log(' ');
+console.log('Borrowing a constructor');
+function BorrowedShape(id){
+	this.id = id;
+}
+BorrowedShape.prototype.name = 'shape';
+BorrowedShape.prototype.toString = function(){return this.name;};
+function BorrowTriangle(){
+	BorrowedShape.apply(this,arguments);
+}
+BorrowTriangle.prototype.name = 'Triangle';
+var t = new BorrowTriangle(101);
+console.log(t.name);
+console.log(t.id);
+console.log(t.toString());
+BorrowTriangle.prototype = new BorrowedShape();
+BorrowTriangle.prototype.name = 'Triangle borrow';
+function B2Shape(id){
+	this.id = id;
+}
+function B2Triangle(){
+	B2Shape.apply(this,arguments);
+}
+B2Triangle.prototype = new B2Shape(101);
+var t = new B2Triangle(202);
+console.log(t.id);
+console.log(t.__proto__.id);
+delete t.id;
+console.log(t.id);
+
+console.log(' ');
+console.log('Borrow a constructor and copy its prototype');
+function B3Shape(id){
+	this.id = id;
+}
+B3Shape.prototype.name = 'Oh yeah baby';
+B3Shape.prototype.toString = function(){return this.name;};
+function B3Triangle(){
+	B3Shape.apply(this,arguments);
+};
+copier(B3Triangle,B3Shape);
+B3Triangle.prototype.name = 'Just do it';
+var tb3 = new B3Triangle(345);
+console.log(tb3.toString());
+console.log(tb3.id);
+console.log(typeof tb3.__proto__.id);
+console.log(tb3.uber.name);
