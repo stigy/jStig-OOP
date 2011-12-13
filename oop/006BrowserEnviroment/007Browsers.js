@@ -62,3 +62,60 @@ var bd = document.documentElement.childNodes[2];
 console.log(bd.childNodes.length);
 console.log(bd.childNodes);
 console.log(bd.childNodes[1].hasAttributes());
+console.log(bd.childNodes[1].attributes.length);
+console.log(bd.childNodes[1].attributes[0].nodeName);
+console.log(bd.childNodes[1].attributes[0].nodeValue);
+console.log(bd.childNodes[1].attributes['class'].nodeValue);
+console.log(bd.childNodes[1].getAttribute('class'));
+console.log(' ');
+console.log('Accesing the content inside a tag');
+console.log(bd.childNodes[1].nodeName);
+console.log(bd.childNodes[1].textContent);
+console.log(bd.childNodes[1].innerHTML);
+console.log(bd.childNodes[3].textContent);
+console.log(bd.childNodes[3].innerHTML);
+console.log(bd.childNodes[1].childNodes.length);
+console.log(bd.childNodes[1].childNodes[0].nodeName);
+console.log(bd.childNodes[1].childNodes[0].nodeValue);
+console.log(' ');
+console.log('DOM ACCES SHORTCUTS');
+console.log(document.getElementsByTagName('p').length);
+console.log(document.getElementsByTagName('p')[0]);
+console.log(document.getElementsByTagName('p')[2]);
+console.log(document.getElementsByTagName('p')[2].id);
+console.log(document.getElementsByTagName('p')[0].className);
+console.log(document.getElementsByTagName('*').length);
+console.log(' ');
+console.log('SIBLINGS BODY FIRST AND LAST CHILDE');
+var para = document.getElementById('closer');
+console.log(para.nextSibling);
+console.log(para.previousSibling);
+console.log(para.previousSibling.previousSibling.previousSibling);
+console.log(para.previousSibling.previousSibling.nextSibling.nextSibling);
+console.log(document.body);
+console.log(document.body.nextSibling);
+console.log(document.body.previousSibling);
+console.log(document.body.firstChild);
+console.log(document.body.lastChild);
+
+function walkDOM(n){
+	do{
+		if(n.hasChildNodes()){
+			console.log(n.firstChild);
+			walkDOM(n.firstChild);
+		}
+	}while(n = n.nextSibling)
+}
+
+walkDOM(document.documentElement);
+walkDOM(document.body);
+console.log('modifying dom nodes');
+var my = document.getElementById('closer');
+my.innerHTML = 'final!!!!';
+my.innerHTML = '<em>my</em> final';
+console.log(my.firstChild);
+console.log(my.firstChild.firstChild);
+my.firstChild.firstChild.nodeValue = 'your';
+console.log(' ');
+console.log('changing the style');
+my.style.border = "1px solid red";
